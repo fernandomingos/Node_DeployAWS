@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "teste": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "start": "node ./bin/server.js"
   },
   "keywords": [],
@@ -22,6 +24,7 @@
     "sendgrid": "^5.2.3"
   },
   "devDependencies": {
+    "jest": "^29.4.2",
     "nodemon": "^2.0.20"
   }
 }
