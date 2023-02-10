@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const app = express();
 const router = express.Router();
@@ -35,6 +37,17 @@ app.use(function(req, res, next){
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-access-token');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
+});
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+//Verificar depois
+app.get('/swagger', (request, response) => {
+    return response.sendFile(process.cwd() + '/src/swagger.json');
+});
+
+app.get('/documentation', (request, response) => {
+    return response.sendFile(process.cwd() + '/src/index.html');
 });
 
 app.use('/', indexRoute);

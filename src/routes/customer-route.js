@@ -7,9 +7,9 @@ const authService = require('../services/auth-services');
 
 router.get('/', controller.get);
 router.post('/', controller.post);
-router.get('/admin/:id', authService.authorize, controller.getById);
-router.delete('/', controller.delete);
-router.put('/update', controller.put);
+router.get('/admin/:id', controller.getById);
+router.delete('/', authService.authorize, controller.delete);
+router.put('/update', authService.authorize, controller.put);
 router.post('/authenticate', controller.authenticate);
 router.post('/refresh-token', authService.authorize, controller.refreshtoken);
 

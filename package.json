@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "teste": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/server.js"
+    "start": "nodemon ./bin/server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,8 @@
     "jsonwebtoken": "^9.0.0",
     "md5": "^2.3.0",
     "mongoose": "^6.9.0",
-    "sendgrid": "^5.2.3"
+    "sendgrid": "^5.2.3",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

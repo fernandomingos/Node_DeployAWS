@@ -1,0 +1,415 @@
+{
+  "openapi": "3.0.0",
+    "info": {
+        "title": "API Node treinamento",
+        "description": "Esse projeto está sendo realizado para treinamento de Nodejs",
+        "termsOfService": "http://fds.com/terms/",
+        "contact": {
+            "name": "Fernando Domingos",
+            "url": "http://www.fds.com/support",
+            "email": "supportfds@fds.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "server": [
+        {
+            "url": "url",
+            "description": "url description"
+        }
+    ],
+    "paths": {
+        "/":{
+            "get": {
+                "description": "Rota de HealthCheck",
+                "summary": "Rota responsável pelo health check da API",
+                "tags": [
+                    "HealthCheck"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseHealtchCheck"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/customers/authenticate": {
+            "post": {
+                "description": "Clientes cadastrados",
+                "summary": "Rota responsável por obter uma lista de clientes",
+                "tags": [
+                    "Authenticate"
+                ],
+                "requestBody": {
+                    "description": "Parâmetros para incluir um cliente",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestAuthenticate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                  "$ref": "#/components/schemas/ResponseAuthenticate"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Falha ao processar sua requisição"
+                    }
+                }
+            }
+        },
+        "/customers": {
+            "post": {
+                "description": "Cadastro Cliente",
+                "summary": "Rota responsável pelo cadastro de um novo cliente",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Parâmetros para incluir um cliente",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestCustomer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseCustomer"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário ou senha inválidos"
+                    },
+                    "500": {
+                        "description": "Falha ao processar sua requisição"
+                    }
+                }
+            },
+            "get": {
+                "description": "Clientes cadastrados",
+                "summary": "Rota responsável por obter uma lista de clientes",
+                "tags": [
+                    "Customer"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseCustomer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Falha ao processar sua requisição"
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualização de dados do Cliente",
+                "summary": "Rota responsável por atualizar os dados do cliente",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Parâmetros para atualizar um cliente",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestCustomer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseCustomer"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário ou senha inválidos"
+                    },
+                    "500": {
+                        "description": "Falha ao processar sua requisição"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Exclusão de um cliente por id",
+                "summary": "Rota responsável por remover um cliente pelo identificador (\"id\")",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestIdCliente"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente removido com sucesso",
+                        "content": {
+                          "application/json": {},
+                          "application/xml": {}
+                        }
+                    },
+                    "500": {
+                        "description": "Falha ao processar sua requisição"
+                    },
+                    "404": {
+                        "description": "Usuário ou senha inválidos"
+                    }
+                }
+            }
+        },
+        "/customers/admin/{id}": {
+            "get": {
+                "description": "Busca de um cliente por id",
+                "summary": "Rota responsável por obter um cliente pelo identificador (\"id\")",
+                "tags": [
+                    "Customer"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do cliente",
+                        "required": true,
+                        "type": "string",
+                        "format": "guid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseCustomer"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RequestCustomer": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do cliente",
+                        "example": "Nome"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Sobrenome do cliente",
+                        "example": "Sobrenome"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email do cliente",
+                        "example": "Email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Senha do cliente",
+                        "example": "Senha"
+                    },
+                    "roles": {
+                        "description": "Perfil do cliente",
+                        "enum": [
+                            "user",
+                            "admin"
+                        ],
+                        "example": "Admin"
+                    }
+                },
+                "required": [
+                    "name",
+                    "lastName",
+                    "email",
+                    "password"
+                ]
+            },
+            "ResponseCustomer": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do cliente",
+                        "example": "Nome"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Sobrenome do cliente",
+                        "example": "Sobrenome"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email do cliente",
+                        "example": "Email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Senha do cliente",
+                        "example": "Senha"
+                    },
+                    "roles": {
+                        "description": "Perfil do cliente",
+                        "enum": [
+                            "user",
+                            "admin"
+                        ],
+                        "example": "admin"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Id do cliente",
+                        "format": "guid"
+                    }
+                }
+            },
+            "RequestAuthenticate": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Email do cliente",
+                        "example": "Email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Senha do cliente",
+                        "example": "Senha"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            "ResponseAuthenticate": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTRkYjNiMDNiYmRhZTYxZjFmZmRjNSIsImVtYWlsIjoiZmVybmFuZG9zaWx2YUBlbWFpbC5jb20iLCJuYW1lIjoiRmVybmFuZG8iLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTY3NTk3MDQ0NSwiZXhwIjoxNjc2MDU2ODQ1fQ.J5zzKK4tGQr8UWVKvIdGbVAkp1TV-E2vVuHwEXWQcCE"
+                    },
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "description": "Nome do cliente",
+                                "example": "nomedocliente@dominio.com.br"
+                            },
+                            "password": {
+                                "type": "string",
+                                "description": "Senha de acesso",
+                                "example": "wqeohiewuihfskgr"
+                            }
+                        }
+                    }
+                }
+            },
+            "ResponseHealtchCheck": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Nome API",
+                        "example": "Título API"
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "Versão do sistema",
+                        "example": "0.0.1"
+                    }
+                }
+            },
+            "RequestIdCliente": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "name": "id",
+                  "description": "Id do cliente",
+                  "required": true,
+                  "format": "guid"
+                }
+              }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "decription": "Autenticação utilizando JWT",
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
